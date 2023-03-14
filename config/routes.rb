@@ -1,12 +1,25 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  resources :likes, only: [:create, :destroy]
+  resources :comments
+  resources :subscriptions
+  resources :subscribers
 
   devise_scope :user do
-  get '/users' => 'devise/registration#new'
-  get '/users/password' =>  'devise/password#new'
-  get '/users/sign_out' => 'devise/sessions#destroy'
+    get '/users' => 'devise/registration#new'
+    get '/users/password' => 'devise/password#new'
+    get '/users/sign_out' => 'devise/sessions#destroy'
   end
+
+  devise_for :users, :controllers => {
+    registrarions: 'users/registrations'
+      }
+
+  resources :users, only: [:show, :index]
+
+  match '/users',   to: 'users#index',   via: 'get'
+
+  get 'posts/myposts'
 
   resources :posts
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
