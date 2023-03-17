@@ -1,0 +1,8 @@
+<%= render "form", comment: @comment %>
+
+<br>
+<% if user_signed_in? %>
+<div>
+  <%= link_to "Back to comments", comments_path %>
+</div>
+<% end %>

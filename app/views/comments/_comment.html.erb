@@ -1,0 +1,22 @@
+<div id="<%= dom_id comment %>" class="comment-container">
+
+  <p>
+    <strong>Post:</strong>
+    <%= comment.post_id %>
+  </p>
+
+  <p>
+    <strong>User:</strong>
+    <%= comment.user_id %>
+  </p>
+
+  <p>
+    <strong>Text:</strong>
+    <%= comment.text %>
+  </p>
+
+  <p>
+    <%= link_to "", comment, class: "comment-link" %>
+  </p>
+
+</div>

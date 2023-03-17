@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
-
-  resources :likes, only: [:create, :destroy]
   resources :comments
-  resources :subscriptions
-  resources :subscribers
+  resources :likes, only: [:create, :destroy]
 
   devise_scope :user do
     get '/users' => 'devise/registration#new'
@@ -22,6 +19,7 @@ Rails.application.routes.draw do
   get 'posts/myposts'
 
   resources :posts
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

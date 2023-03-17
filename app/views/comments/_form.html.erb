@@ -1,0 +1,31 @@
+<div class="col-xl-4 col-md-6 col-sm-8 col-10"
+     style="margin: auto; background-color: #DADADA;
+       border-radius: 6px; padding: 15px;
+       box-shadow: 0px 0px 2px 2px (255, 255, 255, 0.1);">
+  <%= form_with(model: @comment) do |form| %>
+    <h1>New comment</h1>
+
+    <div>
+      <% invalid = @comment.errors.include?(:text) %>
+      <%= form.label :text, style: "display: block" %>
+      <%= form.text_field :text, class: "form-control" %>
+      <% if invalid %>
+        <p style="color:red">
+          <%= @comment.errors.full_messages_for(:text).join(",") %>
+      <% end %>
+      </p>
+    </div>
+
+    <div>
+      <%= form.text_field :user_id, type: "hidden"%>
+    </div>
+
+    <div>
+      <%= form.text_field :post_id, type: "hidden" %>
+    </div>
+
+    <div>
+      <%= form.submit class: "btn btn-outline-dark" %>
+    </div>
+  <% end %>
+</div>
