@@ -7,16 +7,6 @@
     <div>
       <%= form.text_field :user_id, type: "hidden", value: current_user.id %>
     </div>
-    <div>
-      <% invalid = post.errors.include?(:title) %>
-      <%= form.label :title, style: "display: block" %>
-      <%= form.text_field :title, class: "form-control" %>
-      <% if invalid %>
-        <p style="color:red">
-          <%= post.errors.full_messages_for(:title).join(",") %>
-      <% end %>
-      </p>
-    </div>
 
     <div>
       <% invalid = post.errors.include?(:description) %>
@@ -30,13 +20,7 @@
     </div>
 
     <div>
-      <% invalid = post.errors.include?(:keywords) %>
-      <%= form.label :keywords, style: "display: block" %>
-      <%= form.text_field :keywords, class: "form-control" %>
-      <% if invalid %>
-        <p style="color:red">
-          <%= post.errors.full_messages_for(:keywords).join(",") %>
-      <% end %>
+        <p>
       <%= form.file_field :images, multiple: true %>
       </p>
     </div>

@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  get 'profiles/index'
   resources :comments
   resources :likes, only: [:create, :destroy]
 
   devise_scope :user do
-    get '/users' => 'devise/registration#new'
-    get '/users/password' => 'devise/password#new'
+    get '/users' => 'devise/registrations#new'
+    get '/users/password' => 'devise/passwords#new'
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
@@ -15,6 +16,9 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :index]
 
   match '/users',   to: 'users#index',   via: 'get'
+
+  post 'users/:id/follow', to: "users#follow", as: "follow"
+  post 'users/:id/unfollow', to: "users#unfollow", as: "unfollow"
 
   get 'posts/myposts'
 

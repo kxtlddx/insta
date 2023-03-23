@@ -15,10 +15,6 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build
   end
 
-  # GET /comments/1/edit
-  def edit
-  end
-
   # POST /comments or /comments.json
   def create
     @comment = current_user.comments.build(comment_params)
@@ -29,19 +25,6 @@ class CommentsController < ApplicationController
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /comments/1 or /comments/1.json
-  def update
-    respond_to do |format|
-      if @comment.update(comment_params)
-        format.html { redirect_to comment_url(@comment), notice: "Comment was successfully updated." }
-        format.json { render :show, status: :ok, location: @comment }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end

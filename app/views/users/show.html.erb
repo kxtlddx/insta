@@ -19,18 +19,24 @@
                       style="z-index: 1;margin-right: 1%; text-align: left">
                 <%= link_to "Edit profile", edit_user_registration_path, class: "nav-link" %>
               </button>
+            <% else %>
+              <% if current_user.following?(@user) %>
+                <%= button_to "Unfollow", unfollow_path(@user) %>
+              <% else %>
+                <%= button_to "Follow", follow_path(@user) %>
+              <% end %>
             <% end %>
             <div class="d-flex justify-content-end text-center py-1">
               <div>
-                <p class="mb-1 h5">253</p>
-                <p class="small text-muted mb-0">Photos</p>
+                <p class="mb-1 h5"><%= @user.posts.count %></p>
+                <p class="small text-muted mb-0">Posts</p>
               </div>
               <div class="px-3">
-                <p class="mb-1 h5">1026</p>
+                <p class="mb-1 h5"><%= @user.followers.count %></p>
                 <p class="small text-muted mb-0">Followers</p>
               </div>
               <div>
-                <p class="mb-1 h5">478</p>
+                <p class="mb-1 h5"><%= @user.following.count %></p>
                 <p class="small text-muted mb-0">Following</p>
               </div>
             </div>
@@ -44,9 +50,6 @@
             </div>
             <div class="d-flex justify-content-between align-items-center mb-4">
               <p class="lead fw-normal mb-0">Recent photos</p>
-              <% if @user.id == current_user.id %>
-                <%= link_to "Show all", posts_myposts_path, class: "nav-link" %>
-              <% end %>
             </div>
             <%= stylesheet_link_tag("post") %>
             <p style="color: green"><%= notice %></p>

@@ -3,16 +3,20 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
-    @user = User.find_by(id: params[:id])
-    @post = Post.find_by(id: params[:id])
+    if current_user
+      @following_users = current_user.following
+    @posts = Post.joins(:user).where(users: { id: @following_users.map(&:id) })
+                 .order(created_at: :desc)
+                 .limit(2)
+                 .offset(params[:offset])
+
+    end
   end
 
   # GET /posts/1 or /posts/1.json
   def show
     @post = Post.find(params[:id])
     @comment = @post.comments.build
-
   end
 
   # GET /posts/new
@@ -22,10 +26,6 @@ class PostsController < ApplicationController
 
   # GET /posts/1/edit
   def edit
-  end
-
-  def myposts
-    @posts = Post.all
   end
 
   # POST /posts or /posts.json
@@ -58,11 +58,11 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
+    @post.likes.destroy_all
     @post.destroy
 
     respond_to do |format|
       format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
@@ -75,7 +75,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :description, :keywords, :user_id, images: [])
+    params.require(:post).permit(:description, :user_id, images: [])
   end
 
 end

@@ -5,7 +5,11 @@ ruby "3.0.0"
 
 gem 'devise'
 
-gem 'carrierwave'
+gem 'followability'
+
+gem 'ransack'
+
+gem 'kaminari'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4", ">= 7.0.4.2"
@@ -73,4 +77,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'ffaker'
+  gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
+  gem 'rails-controller-testing'
 end

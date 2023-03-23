@@ -2,7 +2,7 @@
   <p style="color: green"><%= notice %></p>
 
   <%= link_to "Back to posts", posts_path %>
-  <%= render partial: "post", object: post %>
+  <%= render @post %>
   <div id="comments" class="text-center">
 
   <% @post.comments.each do |comment| %>
