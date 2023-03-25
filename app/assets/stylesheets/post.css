@@ -25,14 +25,28 @@
     display: inline-block;
     padding: 10px;
     margin: 10px;
-    border: 1px solid black;
+    border: none;
     border-radius: 10px;
-    width: 100px;
-    height: 100px;
+    width: 600px;
+    min-height: 500px;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 .avatar {
     vertical-align: middle;
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+
+.sticker .description {
+    text-align: left;
+    width: 95%;
+    display: inline-block;
+    vertical-align: top;
+}
+.sticker p {
+    margin-left: 14px;
+    display: flex;
+    align-items: center;
 }

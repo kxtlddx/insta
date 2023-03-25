@@ -23,3 +23,24 @@ background: -webkit-linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 
 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238, 1))
 }
+.blackNavbar {
+    background-color: #ccc;
+    color: #222;
+    border: 1px solid #333;
+}
+
+body {
+  background-color: #EFEFEF;
+}
+/*
+ .kitten {
+    background-image: image-url('kittens.png');
+   background-size: contain;
+   background-repeat: no-repeat;
+   height: 500px;
+   width: 500px;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+}*/

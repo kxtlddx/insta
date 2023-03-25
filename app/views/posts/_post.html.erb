@@ -1,36 +1,46 @@
 <p>
 <div id="<%= dom_id post %>" class="sticker">
   <p>
-    <%= link_to post.user.username, user_path(post.user_id), class: "nav-link" %>
+    <% if post.user.avatar.present? %>
+      <%= image_tag post.user.avatar, style: "float: left; object-fit: cover; width: 90%; height: 90%; border-radius: 50%;" %>
+    <% else %>
+      <%= image_tag "defaultAvatar.png", style: "float: left; vertical-align: top; width: 10%; height: 10%; border-radius: 50%;"%>
+      <% end %>
+    <%= link_to post.user.username, user_path(post.user_id), class: "nav-link", style: "color: rgba(0, 0, 0, 1);" %>
   </p>
 
-  <% post.images.each do |image| %>
-    <div style="position: relative;">
-      <%= image_tag(image, style: "object-fit: cover; width: 200px; height: 200px;") %>
-      <%= link_to "", post, class: "nav-link", style: "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" %>
-    </div>
-    <p>
-    </p>
-  <% end %>
-
-  <p>
-    <strong>Description:</strong>
+  <p class="description">
     <% if post.description.length > 15 %>
       <br>
     <% end %>
     <%= post.description %>
   </p>
 
+  <% post.images.each do |image| %>
+    <div style="position: relative;">
+      <%= image_tag(image, style: "object-fit: cover; width: 95%; height: 95%; border-radius: 10px;") %>
+      <%= link_to "", post, class: "nav-link", style: "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" %>
+    </div>
+    <p></p>
+  <% end %>
+
+
+  <%#= THIS IS USED TO CIRCLE AN IMAGE %>
+
+   <%#= image_tag(image, style: "object-fit: cover; width: 90%; height: 90%; border-radius: 50%;") %>
+
+
   <p>
     <% if user_signed_in? %>
-      <%= button_to 'like', likes_path, params: { like: { post_id: post.id, user_id: current_user.id } }, method: :post %>
+      <%= button_to 'like', likes_path, params: { like: { post_id: post.id, user_id: current_user.id } },
+                    method: :post, remote: true, class: "nav-link", style: "object-fit: cover; width: 15%; height: 5%; border-radius: 10px;" %>
     <% end %>
     <%= post.likes.count %>
   </p>
 
   <p>
-    <% if @post.comments.any? %>
-      <% @post.comments.each do |comment| %>
+    <% if post.comments.any? %>
+      <% post.comments.each do |comment| %>
         <% if comment.user_id != nil %>
           <%= render comment %>
         <% end %>

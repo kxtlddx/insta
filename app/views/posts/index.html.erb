@@ -7,6 +7,17 @@
         <%= render post %>
       <% end %>
     </div>
+    <% else %>
+    <div class="sticker">
+      <p>
+        <%= image_tag "defaultAvatar.png", style: "float: left; vertical-align: top; width: 10%; height: 10%; border-radius: 50%;"%>
+        <%= "ipostcats"%>
+      </p>
+      <div style="position: relative;">
+        <%= image_tag "kittens.png", style: "object-fit: cover; width: 95%; height: 95%; border-radius: 10px;"%>
+      </div>
+
+    </div>
   <% end %>
 </div>
 
