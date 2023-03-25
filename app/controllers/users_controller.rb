@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :set_user
   before_action :authenticate_user!
   def show
-    @posts = Post.all
+    @posts = Post.order(created_at: :desc)
     @user = User.find_by_id(params[:id])
     @user_id = current_user.id
     @user_avatar = current_user.avatar

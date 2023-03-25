@@ -1,7 +1,7 @@
 <p>
 <div id="<%= dom_id post %>" class="sticker">
   <p>
-  <%= link_to post.user.username, user_path(post.user_id), class: "nav-link" %>
+    <%= link_to post.user.username, user_path(post.user_id), class: "nav-link" %>
   </p>
 
   <% post.images.each do |image| %>
@@ -11,7 +11,7 @@
     </div>
     <p>
     </p>
-<% end %>
+  <% end %>
 
   <p>
     <strong>Description:</strong>
@@ -23,9 +23,19 @@
 
   <p>
     <% if user_signed_in? %>
-      <%= button_to 'like', likes_path, params: { like: { post_id: post.id, user_id: current_user.id}}, method: :post %>
+      <%= button_to 'like', likes_path, params: { like: { post_id: post.id, user_id: current_user.id } }, method: :post %>
+    <% end %>
+    <%= post.likes.count %>
+  </p>
+
+  <p>
+    <% if @post.comments.any? %>
+      <% @post.comments.each do |comment| %>
+        <% if comment.user_id != nil %>
+          <%= render comment %>
+        <% end %>
       <% end %>
-  <%= post.likes.count %>
+    <% end %>
   </p>
 
 </div>

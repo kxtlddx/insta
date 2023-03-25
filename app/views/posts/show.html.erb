@@ -1,19 +1,18 @@
 <section class="h-100 gradient-custom-2">
   <p style="color: green"><%= notice %></p>
 
-  <%= link_to "Back to posts", posts_path %>
-  <%= render @post %>
+  <%= link_to "Back to posts", :back %>
+  <div id="posts" class="text-center">
+      <div id="posts-container">
+          <%= render @post %>
+      </div>
+  </div>
+
   <div id="comments" class="text-center">
 
-  <% @post.comments.each do |comment| %>
-    <% if comment.user_id != nil %>
-    <%= render comment %>
-      <% end %>
-  <% end %>
 <% if user_signed_in? %>
   <% if current_user.id == @post.user.id %>
     <div>
-      <%= link_to "Edit this post", edit_post_path(@post) %> |
       <%= button_to "Destroy this post", @post, method: :delete %>
     </div>
   <% end %>

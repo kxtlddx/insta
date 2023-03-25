@@ -1,16 +1,14 @@
-
-
 <%= stylesheet_link_tag("post") %> <p style="color: green"><%= notice %>
 </p>
 <div id="posts" class="text-center">
   <% if user_signed_in? %>
     <div id="posts-container">
-      <% @posts.each do |post| %> <p><%= render post %></p>
-      <% end %> </div>
-
-  <% end %> </div>
-
-
+      <% @posts.each do |post| %>
+        <%= render post %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
 <a class="load-more-posts" href="<%= posts_path %>"></a>
   <script>
@@ -36,49 +34,4 @@
               $.getScript($('.load-more-posts').attr('href') + '?offset=' + currentOffset);
           }
       });
-
-
-
-
-      /*$(window).on('scroll', function() {
-      if ($(window).scrollTop() + $(window).height() === $(document).height()) {
-          // Trigger AJAX request to load more posts
-          $.getScript($('.load-more-posts').attr('href'));
-      }
-  });*/
   </script>
-
-<!--<script>
-    let offset = 0;
-    const postsContainer = document.querySelector('#posts-container');
-    console.log(postsContainer)
-    window.addEventListener('scroll', () => {
-        const posts = document.querySelectorAll('#posts-container p');
-        const thirdToLastPost = posts[posts.length - 3];
-
-        if (isElementInViewport(thirdToLastPost)) {
-            offset += 6;
-            fetch(`/posts?offset=${offset}`)
-              .then(response => response.text())
-              .then(posts => {
-                  if (posts.trim().length === 0) {
-                  } else {
-                      postsContainer.insertAdjacentHTML('beforeend', posts);
-                      console.log(postsContainer)
-
-                  }
-              });
-        }
-    });
-
-    function isElementInViewport(el) {
-        const rect = el.getBoundingClientRect();
-
-        return (
-          rect.top >= 0 &&
-          rect.left >= 0 &&
-          rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-          rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-        );
-    }
-</script>-->

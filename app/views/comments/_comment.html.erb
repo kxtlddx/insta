@@ -1,17 +1,13 @@
 <div id="<%= dom_id comment %>" class="comment-container">
 
   <p>
-    <strong>Post:</strong>
-    <%= comment.post_id %>
+    <%= comment.user.username %>
   </p>
 
   <p>
-    <strong>User:</strong>
-    <%= comment.user_id %>
-  </p>
-
-  <p>
-    <strong>Text:</strong>
+    <% if comment.text.length > 15 %>
+      <br>
+    <% end %>
     <%= comment.text %>
   </p>
 

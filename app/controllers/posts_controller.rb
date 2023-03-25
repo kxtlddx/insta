@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_post, only: %i[ show update destroy ]
+  before_action :authenticate_user!, only: [:new, :create]
   # GET /posts or /posts.json
   def index
     if current_user
@@ -9,7 +9,6 @@ class PostsController < ApplicationController
                  .order(created_at: :desc)
                  .limit(2)
                  .offset(params[:offset])
-
     end
   end
 
@@ -22,10 +21,6 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
-  end
-
-  # GET /posts/1/edit
-  def edit
   end
 
   # POST /posts or /posts.json

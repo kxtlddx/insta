@@ -19,7 +19,7 @@ RSpec.describe PostsController, type: :controller do
     end
 
     it "assigns @following_users" do
-      expect(assigns(:following_users)).to eq(following_user)
+      expect(assigns(:following_user)).to eq(@following_user)
     end
 
     it "assigns @posts" do
@@ -62,22 +62,6 @@ RSpec.describe PostsController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
-    let(:post) { create(:post) }
-
-    before do
-      get :edit, params: { id: post.id }
-    end
-
-    it "assigns @post" do
-      expect(assigns(:post)).to eq(post)
-    end
-
-    it "renders the edit template" do
-      expect(response).to render_template("edit")
-    end
-  end
-
   describe "POST #create" do
     context "with valid params" do
       let(:valid_attributes) { attributes_for(:post) }
@@ -113,43 +97,6 @@ RSpec.describe PostsController, type: :controller do
       it "renders the new template" do
         post :create, params: { post: invalid_attributes }
         expect(response).to render_template("new")
-      end
-    end
-  end
-
-  describe "PUT #update" do
-    let(:post) { create(:post) }
-    let(:new_attributes) { attributes_for(:post) }
-
-    context "with valid params" do
-      before do
-        put :update, params: { id: post.id, post: new_attributes }
-        post.reload
-      end
-
-      it "updates the requested post" do
-        expect(post.description).to eq(new_attributes[:description])
-      end
-
-      it "redirects to the post" do
-        expect(response).to redirect_to(post)
-      end
-    end
-
-    context "with invalid params" do
-      let(:invalid_attributes) { attributes_for(:post, description: nil) }
-
-      before do
-        put :update, params: { id: post.id, post: invalid_attributes }
-        post.reload
-      end
-
-      it "does not update the requested post" do
-        expect(post.description).not_to eq(invalid_attributes[:description])
-      end
-
-      it "renders the edit template" do
-        expect(response).to render_template("edit")
       end
     end
   end

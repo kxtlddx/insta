@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   get 'profiles/index'
+  get '/profiles', to: 'profiles#users'
+  get '/profiles', to: 'profiles#search_query'
   resources :comments
   resources :likes, only: [:create, :destroy]
 

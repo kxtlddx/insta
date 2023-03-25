@@ -12,6 +12,7 @@
       <% if invalid %>
         <p style="color:red">
           <%= @comment.errors.full_messages_for(:text).join(",") %>
+        <%= debug @comment %>
       <% end %>
       </p>
     </div>
