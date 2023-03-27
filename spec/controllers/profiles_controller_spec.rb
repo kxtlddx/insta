@@ -3,16 +3,16 @@ require 'rails_helper'
 RSpec.describe ProfilesController, type: :controller do
 
   describe "GET #index" do
-    let(:user) { create(:user) }
     it "returns http success" do
+      user = FactoryBot.create(:user)
       sign_in user
       get :index
       expect(response).to have_http_status(:success)
     end
 
     it 'assigns @users' do
-      user1 = User.create(username: 'testuser1')
-      user2 = User.create(username: 'testuser2')
+      user1 = FactoryBot.create(:user)
+      user2 = FactoryBot.create(:user)
 
       get :index
 

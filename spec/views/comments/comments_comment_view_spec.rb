@@ -1,20 +1,18 @@
 require 'rails_helper'
 
-RSpec.describe 'posts/show', type: :view do
-  let(:user) { create(:user) }
-  let(:post) { create(:post, user: user) }
+RSpec.describe 'comments/show.html.erb', type: :view do
+  let(:comment) { create(:comment) }
 
-  before do
-    assign(:post, post)
-    assign(:user, user)
+  it 'displays the comment' do
     render
+
+    expect(rendered).to have_selector("div#comment-#{comment.user.username}", text: comment.text)
   end
 
-  it 'displays the post' do
-    expect(rendered).to include(post.description)
-    expect(rendered).to include(user.username)
-    expect(rendered).to include(post.images.first.filename.to_s)
-    expect(rendered).to have_link(user.username, href: user_path(user))
-    expect(rendered).to have_link('', href: post_path(post))
+  it 'renders the form' do
+    render partial: 'comments/form', locals: { comment: comment }
+
+    expect(rendered).to have_selector('form[action="/comments"][method="post"]')
   end
+
 end

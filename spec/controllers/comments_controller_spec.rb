@@ -62,13 +62,15 @@ RSpec.describe CommentsController, type: :controller do
 
       it "assigns a newly created comment as @comment" do
         post :create, params: { comment: valid_attributes }
-        expect(assigns(:comment)).to be_a(Comment)
-        expect(assigns(:comment)).to be_persisted
+        expect(assigns(:comment)).to be_a_new(Comment)
       end
 
       it "redirects to the created comment" do
-        post :create, params: { comment: valid_attributes }
-        expect(response).to redirect_to(Comment.last)
+        expect {
+          post :create, params: { comment: valid_attributes }
+        }.to change(Comment, :count).by(1)
+
+        expect(response).to redirect_to(comment_url(Comment.last))
       end
     end
 
@@ -100,7 +102,7 @@ RSpec.describe CommentsController, type: :controller do
 
     it "redirects to the comments list" do
       delete :destroy, params: { id: comment.id }
-      expect(response).to redirect_to(comments_url)
+      expect(response).to redirect_to(post_path)
     end
   end
 

@@ -11,8 +11,8 @@ RSpec.describe 'posts/index.html.erb', type: :view do
     render
   end
 
-  it 'displays all the posts' do
-    expect(rendered).to  include(post.description)
+  it 'displays the post' do
+    expect(rendered).to include(post.description)
   end
 
   context 'when user is signed in' do

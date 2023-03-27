@@ -12,13 +12,13 @@ gem 'ransack'
 gem 'kaminari'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4", ">= 7.0.4.2"
+gem "rails"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+gem "pg"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -31,6 +31,8 @@ gem "turbo-rails"
 
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
+
+gem 'sassc', '~> 2.4'
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
@@ -82,4 +84,5 @@ group :test do
   gem 'ffaker'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 5.0'
 end
