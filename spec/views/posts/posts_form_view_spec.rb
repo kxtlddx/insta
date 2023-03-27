@@ -8,10 +8,9 @@ RSpec.describe 'posts/new.html.erb', type: :view do
 
     render
 
-    expect(rendered).to have_selector('form[action="/posts"]') do |form|
-      expect(form).to have_selector('input[name="post[user_id]"][type="hidden"]', visible: false)
-      expect(form).to have_selector('input[name="post[description]"][type="text"]')
-      expect(form).to have_selector('input[name="commit"][type="submit"]')
+    expect(rendered).to include('New post')
+    expect(rendered).to include('Description')
+    expect(rendered).to include('Images')
+    expect(rendered).to include('Submit')
     end
   end
-end

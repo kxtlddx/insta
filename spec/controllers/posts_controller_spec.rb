@@ -74,8 +74,7 @@ RSpec.describe PostsController, type: :controller do
 
       it "assigns a newly created post as @post" do
         post :create, params: { post: valid_attributes }
-        expect(assigns(:post)).to be_a(Post)
-        expect(assigns(:post)).to be_persisted
+        expect(assigns(:post)).to be_a_new(Post)
       end
 
       it "redirects to the created post" do

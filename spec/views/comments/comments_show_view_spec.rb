@@ -1,47 +1,35 @@
 require 'rails_helper'
 
-RSpec.describe "posts/show.html.erb", type: :view do
-
-  let(:user) { create(:user) }
-  let(:post) { create(:post, user: user) }
-  let(:current_user) { create(:user) }
+RSpec.describe 'comments/show.html.erb', type: :view do
+  let(:comment) { create(:comment) }
 
   before do
-    assign(:post, post)
+    assign(:comment, comment)
     render
   end
 
-  it "displays the post" do
-    expect(rendered).to include(post.description)
-  end
-
-  it "displays the 'Back to posts' link" do
-    expect(rendered).to include("Back to posts")
-  end
-
-  context "when user is signed in" do
-    before { sign_in user }
-
-    it "displays the 'Destroy this post' button" do
-      if post.user_id == current_user.id
-        expect(rendered).to include("Destroy this post")
-      end
-    end
-
-    it "displays the comment form" do
-      render
-      expect(rendered).to have_selector("form[action='#{comments_path}'][method='post']")
+  it 'displays the comment' do
+    expect(rendered).to have_selector('#comment') do |comment_div|
+      expect(comment_div).to have_content(comment.text)
+      expect(comment_div).to have_content(comment.user.email)
     end
   end
 
-  context "when user is not signed in" do
-    it "does not display the 'Destroy this post' button" do
-      expect(rendered).not_to include("Destroy this post")
-    end
+  context 'when user is signed in' do
+    before { sign_in comment.user }
 
-    it "does not display the comment form" do
-      render
-      expect(rendered).not_to have_selector("form[action='#{comments_path}'][method='post']")
+    it 'displays a button to destroy the comment' do
+      expect(rendered).to have_button('Destroy this comment')
     end
+  end
+
+  context 'when user is not signed in' do
+    it 'does not display a button to destroy the comment' do
+      expect(rendered).not_to have_button('Destroy this comment')
+    end
+  end
+
+  it 'displays a link to go back to post' do
+    expect(rendered).to have_link('Back to post', href: :back)
   end
 end

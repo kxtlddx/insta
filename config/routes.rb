@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => {
     registrarions: 'users/registrations'
-      }
+  }
 
   resources :users, only: [:show, :index]
   match '/users',   to: 'users#index',   via: 'get'

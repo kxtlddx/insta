@@ -86,4 +86,5 @@ group :test do
   gem 'ffaker'
   gem 'database_cleaner', '~> 1.5', '>= 1.5.3'
   gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 5.0'
 end
