@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/profiles', to: 'profiles#users'
   get '/profiles', to: 'profiles#search_query'
   resources :comments
-  resources :likes, only: [:create, :destroy]
+  resources :likes, only: [:create]
 
   devise_scope :user do
     get '/users' => 'devise/registrations#new'
@@ -16,13 +16,19 @@ Rails.application.routes.draw do
       }
 
   resources :users, only: [:show, :index]
-
   match '/users',   to: 'users#index',   via: 'get'
 
   post 'users/:id/follow', to: "users#follow", as: "follow"
   post 'users/:id/unfollow', to: "users#unfollow", as: "unfollow"
 
   get 'posts/myposts'
+
+  resources :users do
+    member do
+      get :followers
+      get :following
+    end
+  end
 
   resources :posts
 

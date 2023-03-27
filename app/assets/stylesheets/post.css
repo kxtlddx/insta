@@ -18,6 +18,19 @@
     background-color: rgba(0, 0, 0, 0, 1);
 }
 
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.kostil {
+    max-width: 400px;
+    max-height: 400px;
+}
+
 .post-link:hover {
     opacity: 0.3;
 }
@@ -49,4 +62,73 @@
     margin-left: 14px;
     display: flex;
     align-items: center;
+}
+
+/*
+likes
+*/.heart {
+      position: relative;
+      height: 13px;
+      width: 13px;
+      background: #666666;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+
+      transform: rotate(-45deg);
+      cursor: pointer;
+        margin-top: 3px;
+      margin-left: 3px;
+  }
+
+.heart.fill-color {
+    background-color: #ff2827;
+}
+
+.heart::before,
+.heart::after {
+    position: absolute;
+    content: "";
+    width: calc(100% - (5px / 35));
+    height: calc(100% - (5px / 35));
+    background: inherit;
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -50%;
+}
+
+.heart::after {
+    top: 0;
+    right: -50%;
+}
+
+.like-container {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #c9c9c9;
+    border-radius: 10px;
+    margin: -5px 10px 10px 11px;
+}
+
+.like-count {
+    margin-left: 14px;
+    font-size: 16px;
+    color: rgba(0,0,0,0.5);
+}
+
+/*
+comments
+*/
+.post-actions {
+    display: flex;
+}
+/*
+images
+*/
+
+.image_preview_container::-webkit-scrollbar {
+    display: none;
 }

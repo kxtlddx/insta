@@ -7,8 +7,9 @@ class PostsController < ApplicationController
       @following_users = current_user.following
     @posts = Post.joins(:user).where(users: { id: @following_users.map(&:id) })
                  .order(created_at: :desc)
-                 .limit(2)
+                 .limit(4)
                  .offset(params[:offset])
+      @comment = Comment.new
     end
   end
 

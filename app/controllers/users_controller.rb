@@ -6,8 +6,6 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by_id(params[:id])
     @posts = @user.posts.order(created_at: :desc)
-    @user_id = current_user.id
-    @user_avatar = current_user.avatar
   end
 
   def index
@@ -28,5 +26,16 @@ class UsersController < ApplicationController
   def set_user
     @user = User.find(params[:id])
   end
+
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers.page(params[:page]).per(20)
+  end
+
+  def following
+    @user = User.find(params[:id])
+    @following = @user.following.page(params[:page]).per(20)
+  end
+
 
 end

@@ -1,7 +1,4 @@
-<div class="col-xl-4 col-md-6 col-sm-8 col-10"
-     style="margin: auto; background-color: #DADADA;
-       border-radius: 6px; padding: 15px;
-       box-shadow: 0px 0px 2px 2px; (255, 255, 255, 0.1);">
+<div class="center">
   <%= form_with(model: post) do |form| %>
     <h1>New post</h1>
     <div>
@@ -11,7 +8,7 @@
     <div>
       <% invalid = post.errors.include?(:description) %>
       <%= form.label :description, style: "display: block" %>
-      <%= form.text_field :description, class: "form-control" %>
+      <%= form.text_field :description, class: "form-control", style: "width: 400px;" %>
       <% if invalid %>
         <p style="color:red">
           <%= post.errors.full_messages_for(:description).join(",") %>
@@ -20,13 +17,31 @@
     </div>
 
     <div>
-        <p>
-      <%= form.file_field :images, multiple: true %>
+      <p>
+        <%= form.file_field :images, multiple: true, class: "post_images new_class" %>
       </p>
     </div>
+
+    <div class="image_preview_container" style="overflow-x: scroll; white-space: nowrap; scroll-behavior: smooth;">
+      <div class="image_preview kostil"></div>
+    </div>
+
+    <% if :images.size > 0 %>
+      <button class="scroll_left" type="button" style="border: none; background: none;">
+        <i class="material-icons" style="width: 24px; height: 24px; color: rgba(0,0,0,0.5); cursor: pointer;">chevron_left</i>
+      </button>
+
+      <button class="scroll_right" type="button" style="border: none; background: none;">
+        <i class="material-icons" style="width: 24px; height: 24px; color: rgba(0,0,0,0.5); cursor: pointer;">chevron_right</i>
+      </button>
+    <%else %>
+      <p></p>
+    <% end %>
 
     <div>
       <%= form.submit class: "btn btn-outline-dark" %>
     </div>
   <% end %>
 </div>
+
+<%= javascript_include_tag 'posts_images' %>

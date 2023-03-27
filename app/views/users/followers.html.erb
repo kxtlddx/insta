@@ -1,0 +1,34 @@
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var rows = document.querySelectorAll(".follower-row");
+        rows.forEach(function(row) {
+            row.addEventListener("click", function() {
+                window.location.href = this.dataset.href;
+            });
+        });
+    });
+</script>
+
+<h1 style="text-align: center;"><%= @user.username %>'s Followers</h1>
+
+<table class="followers-table" >
+  <tbody>
+  <% @followers.each do |follower| %>
+    <tr class="follower-row" data-href="<%= user_path(follower) %>" style="cursor: pointer;">
+      <td>
+        <% if follower.avatar.present? %>
+          <%= image_tag follower.avatar, style: "width: 50px; height: 50px; border-radius: 50%;" %>
+        <% else %>
+          <%= image_tag "defaultAvatar.png", style: "width: 50px; height: 50px; border-radius: 50%;" %>
+        <% end %>
+      </td>
+      <td><%= follower.username %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= paginate @followers %>

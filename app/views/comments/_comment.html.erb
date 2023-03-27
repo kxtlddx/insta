@@ -1,18 +1,24 @@
 <div id="<%= dom_id comment %>" class="comment-container">
 
   <p>
-    <%= comment.user.username %>
-  </p>
-
-  <p>
-    <% if comment.text.length > 15 %>
-      <br>
+    <% if comment.user.avatar.present? %>
+      <%= image_tag comment.user.avatar, style: " float: left; vertical-align: top; width: 8%; height: 8%; border-radius: 50%;"%>
+    <% else %>
+      <%= image_tag "defaultAvatar.png", style: " float: left; vertical-align: top; width: 8%; height: 8%; border-radius: 50%;"%>
     <% end %>
-    <%= comment.text %>
+    <%= link_to comment.user.username, user_path(comment.user_id), class: "nav-link", style: "font-size: 16px;
+     margin: 0px 2px 30px 0px;
+     color: rgba(0, 0, 0, 1);" %>
   </p>
 
-  <p>
-    <%= link_to "", comment, class: "comment-link" %>
-  </p>
+  <div class="comment-body">
+    <%= comment.text %>
+    <%#= text %>
+  </div>
+  <% if current_user.id == comment.user_id %>
+    <%= button_to(comment, method: :delete, style: "width: 24px; height: 24px; border: none; background: none; margin-top: -10px; margin-left: 348px;") do %>
+      <i class="material-icons" style="width: 24px; height: 24px; color: rgba(0,0,0,0.5); cursor: pointer;">delete</i>
+    <% end %>
+  <% end %>
 
 </div>

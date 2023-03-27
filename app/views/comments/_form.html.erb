@@ -1,32 +1,40 @@
-<div class="col-xl-4 col-md-6 col-sm-8 col-10"
-     style="margin: auto; background-color: #DADADA;
-       border-radius: 6px; padding: 15px;
-       box-shadow: 0px 0px 2px 2px (255, 255, 255, 0.1);">
-  <%= form_with(model: @comment) do |form| %>
-    <h1>New comment</h1>
+<div class="comment-container">
+  <p>
+    <% if current_user.avatar.present? %>
+      <%= image_tag current_user.avatar, style: " float: left; vertical-align: top; width: 8%; height: 8%; border-radius: 50%;"%>
+    <% else %>
+      <%= image_tag "defaultAvatar.png", style: " float: left; vertical-align: top; width: 8%; height: 8%; border-radius: 50%;"%>
+    <% end %>
+    <%= link_to current_user.username, user_path(current_user.id), class: "nav-link", style: "font-size: 16px;
+     margin: 0px 2px 30px 0px;
+     color: rgba(0, 0, 0, 1);" %>
 
-    <div>
+    <%= form_with(model: @comment, html: {id: 'comment-form'}) do |form| %>
+
       <% invalid = @comment.errors.include?(:text) %>
-      <%= form.label :text, style: "display: block" %>
-      <%= form.text_field :text, class: "form-control" %>
+      <%= form.text_area :text, class: "form-control", style: "width: 400px; margin-left: 75px; margin-bottom: -60px;
+       margin-top: -40px;
+       font-size: 13px;"%>
       <% if invalid %>
         <p style="color:red">
           <%= @comment.errors.full_messages_for(:text).join(",") %>
-        <%= debug @comment %>
+
       <% end %>
       </p>
-    </div>
-
-    <div>
       <%= form.text_field :user_id, type: "hidden"%>
-    </div>
-
-    <div>
       <%= form.text_field :post_id, type: "hidden" %>
-    </div>
 
-    <div>
-      <%= form.submit class: "btn btn-outline-dark" %>
-    </div>
   <% end %>
+
+      <i class="material-icons" onclick="document.getElementById('comment-form').submit()" style=" width: 24px; height: 24px; color: rgba(0,0,0,0.5); cursor: pointer; margin-top: -10px; margin-left: 493px;">checkmark</i>
+
+
 </div>
+
+
+
+<script>
+    function submitForm() {
+        document.querySelector('form').submit();
+    }
+</script>

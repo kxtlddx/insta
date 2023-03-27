@@ -1,0 +1,112 @@
+/*function addComment(postId, userId) {
+    const data = { like: { post_id: postId, user_id: userId } };
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch('/likes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token,
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data),
+        credentials: 'same-origin'
+    }).then(response => response.json())
+        .then(data => {
+            document.querySelector(`#like-count-${postId + 1}`).textContent = data.like_count;
+        });
+}*/
+
+function addComment(postId, userId, commentText) {
+    const data = { comment: { post_id: postId, user_id: userId, text: commentText } };
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch('/comments', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token,
+            'Accept': 'text/html'
+        },
+        body: JSON.stringify(data),
+        credentials: 'same-origin'
+    }).then(response => response.text())
+        .then(commentHtml => {
+            const postActions = document.querySelector('.post-actions');
+            postActions.insertAdjacentHTML('beforeend', commentHtml);
+        });
+}
+
+
+/*function addComment(postId, userId, commentText) {
+    const data = { comment: { post_id: postId, user_id: userId, text: commentText } };
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch('/comments', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': token,
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data),
+        credentials: 'same-origin'
+    }).then(response => response.json())
+        .then(data => {
+            //comment_html: render_to_string(partial: 'comments/comment', locals: { comment: @comment }) } }
+            const commentData = JSON.parse(data.comment_html);
+            const user =  data.user;
+            const postActions = document.querySelector('.post-actions');
+            const newComment = document.createElement('div');
+            newComment.id = `comment_${commentData.id}`;
+            newComment.classList.add('comment-container');
+            // Add the comment's user avatar or default avatar
+
+            console.log(user.avatar)
+
+            const avatar = document.createElement('img');
+            if (user.avatar_present) {
+                avatar.src = user.avatar
+            } else {
+                avatar.src = 'defaultAvatar.png';
+            }
+            avatar.style.cssText = 'float: left; vertical-align: top; width: 8%; height: 8%; border-radius: 50%;';
+            newComment.appendChild(avatar);
+
+            // Add the comment's username
+            const username = document.createElement('a');
+            username.href = `/users/${commentData.user_id}`;
+            username.classList.add('nav-link');
+            username.style.cssText = 'font-size: 16px; margin: 0px 2px 30px 0px; color: rgba(0, 0, 0, 1);';
+            username.textContent = user.username;
+            newComment.appendChild(username);
+
+            // Add the comment's text
+            const commentBody = document.createElement('div');
+            commentBody.classList.add('comment-body');
+            commentBody.textContent = commentData.text;
+            newComment.appendChild(commentBody);
+
+            postActions.appendChild(newComment);
+        });
+}*/
+
+/*
+function addComment(postId, userId, commentText) {
+    const data = { comment: { post_id: postId, user_id: userId, text: commentText } };
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    $.ajax({
+        url: '/comments',
+        method: 'POST',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        headers: {
+            'X-CSRF-Token': token
+        },
+        dataType: 'html'
+    }).done(function (data) {
+        const postActions = document.querySelector('.post-actions');
+        $('.post-actions').append(data);
+    });
+}*/

@@ -1,12 +1,23 @@
 <p>
 <div id="<%= dom_id post %>" class="sticker">
+  <div>
+    <% if user_signed_in? %>
+      <% if current_user.id == post.user.id %>
+        <%= button_to(post, method: :delete, style: "width: 24px; height: 24px; border: none; background: none; margin-top: 0px; margin-bottom: 0px; margin-left: 500px;") do %>
+          <i class="material-icons" style="width: 24px; height: 24px; color: rgba(0,0,0,0.5); cursor: pointer;">delete</i>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
   <p>
     <% if post.user.avatar.present? %>
-      <%= image_tag post.user.avatar, style: "float: left; object-fit: cover; width: 90%; height: 90%; border-radius: 50%;" %>
+      <%= image_tag post.user.avatar, style: "float: left; object-fit: cover; width: 10%; height: 10%; border-radius: 50%;" %>
     <% else %>
-      <%= image_tag "defaultAvatar.png", style: "float: left; vertical-align: top; width: 10%; height: 10%; border-radius: 50%;"%>
-      <% end %>
+      <%= image_tag "defaultAvatar.png", style: "float: left; vertical-align: top; width: 10%; height: 10%; border-radius: 50%;" %>
+    <% end %>
+
     <%= link_to post.user.username, user_path(post.user_id), class: "nav-link", style: "color: rgba(0, 0, 0, 1);" %>
+
   </p>
 
   <p class="description">
@@ -16,40 +27,77 @@
     <%= post.description %>
   </p>
 
-  <% post.images.each do |image| %>
+  <div class="image_preview_container" style="overflow-x: scroll; overflow-y: hidden;  white-space: nowrap; scroll-behavior: smooth;">
+    <div class="image_preview">
+      <% post.images.each do |image| %>
+        <%= image_tag(image, style: "width: 100%; height: 100%; object-fit: cover; display: inline-block; border-radius: 10px;") %>
+
+      <% end %>
+      <div style="position: relative;">
+        <%= link_to "", post, class: "nav-link", style: "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" %>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- <%# post.images.each do |image| %>
     <div style="position: relative;">
-      <%= image_tag(image, style: "object-fit: cover; width: 95%; height: 95%; border-radius: 10px;") %>
-      <%= link_to "", post, class: "nav-link", style: "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" %>
+      <%#= image_tag(image, style: "object-fit: cover; width: 95%; height: 95%; border-radius: 10px;") %>
+      <%#= link_to "", post, class: "nav-link", style: "position: absolute; top: 0; right: 0; bottom: 0; left: 0;" %>
     </div>
     <p></p>
+  <%# end %>-->
+  <% if post.images.size > 1 %>
+    <button class="scroll_left" type="button" style="border: none; background: none;">
+      <i class="material-icons" style="width: 24px; height: 24px; color: rgba(0,0,0,0.5); cursor: pointer;">chevron_left</i>
+    </button>
+
+    <button class="scroll_right" type="button" style="border: none; background: none;">
+      <i class="material-icons" style="width: 24px; height: 24px; color: rgba(0,0,0,0.5); cursor: pointer;">chevron_right</i>
+    </button>
+  <% else %>
+  <p></p>
   <% end %>
 
-
-  <%#= THIS IS USED TO CIRCLE AN IMAGE %>
-
-   <%#= image_tag(image, style: "object-fit: cover; width: 90%; height: 90%; border-radius: 50%;") %>
-
-
-  <p>
+  <div class="post-actions">
     <% if user_signed_in? %>
-      <%= button_to 'like', likes_path, params: { like: { post_id: post.id, user_id: current_user.id } },
-                    method: :post, remote: true, class: "nav-link", style: "object-fit: cover; width: 15%; height: 5%; border-radius: 10px;" %>
-    <% end %>
-    <%= post.likes.count %>
-  </p>
-
-  <p>
-    <% if post.comments.any? %>
-      <% post.comments.each do |comment| %>
-        <% if comment.user_id != nil %>
-          <%= render comment %>
+      <div class="like-container">
+        <% if post.likes.find_by(user_id: current_user.id) %>
+          <div class="heart fill-color" onclick="likePost(<%= post.id %>, <%= current_user.id %>)"></div>
+        <% else %>
+          <div class="heart" onclick="likePost(<%= post.id %>, <%= current_user.id %>)"></div>
         <% end %>
+    <% end %>
+    <span id="like-count-<%= post.id + 1 %>" class="like-count"><%= post.likes.count %></span>
+    </div>
+
+    <div class="like-container">
+      <%= link_to post_path(post) do %>
+        <i class="material-icons" style="width: 120%; height: 120%; color: rgba(0,0,0,0.5); cursor: pointer; margin-top: 6px; margin-left: -3px;">comment</i>
       <% end %>
+      <span id="like-count" style="margin-left: 7px;"><%= post.comments.count %></span>
+    </div>
+  </div>
+
+  <p class="post-actions">
+    <% if controller.controller_name == 'posts' && controller.action_name == 'show' %>
+      <% if post.comments.any? %>
+        <%= render "comments/form" %>
+        <% post.comments.order(created_at: :desc).each do |comment| %>
+          <% if comment.user_id != nil %>
+            <%= render comment %>
+          <% end %>
+        <% end %>
+        <% @post_id = post.id %>
+
+      <% end %>
+
+    <% else %>
+      <%= render post.comments.most_recent.first if post.comments.any? %>
     <% end %>
   </p>
-
 </div>
+
 </p>
-
-
 

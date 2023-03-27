@@ -1,14 +1,12 @@
+/*
 .comment-container {
-    background-color: #DADADA;
-    border: 1px solid #999999;
-    border-radius: 6px;
     margin-bottom: 20px;
     padding: 15px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 10px; /* Change this value to adjust the font size */
+    font-size: 10px; !* Change this value to adjust the font size *!
 }
 
 .comment-link {
@@ -24,4 +22,22 @@
 
 .comment-link:hover {
     opacity: 0.3;
+}*/
+.comment-container {
+    margin-top: 5px;
+    margin-bottom: 0px;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+}
+.comment-body{
+    display: flex;
+    align-items: self-end;
+    margin: -52px -60px 20px 75px;
+    font-size: 13px;
 }

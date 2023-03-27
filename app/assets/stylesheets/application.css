@@ -32,15 +32,3 @@ background: linear-gradient(to right, rgba(251, 194, 235, 1), rgba(166, 193, 238
 body {
   background-color: #EFEFEF;
 }
-/*
- .kitten {
-    background-image: image-url('kittens.png');
-   background-size: contain;
-   background-repeat: no-repeat;
-   height: 500px;
-   width: 500px;
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-}*/

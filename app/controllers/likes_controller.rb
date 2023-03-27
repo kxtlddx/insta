@@ -16,8 +16,12 @@ class LikesController < ApplicationController
         flash[:danger] = "Error creating like"
       end
     end
-    redirect_back(fallback_location: post_path(@like.post))
+    respond_to do |format|
+      #format.html { redirect_back(fallback_location: post_path(@like.post)) }
+      format.json { render json: { like_count: @like.post.likes.count } }
+    end
   end
+
 
   private
 
