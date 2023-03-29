@@ -1,81 +1,71 @@
-
-  <div class="container py-5">
-    <div class="row d-flex justify-content-center align-items-center">
-      <div class="col col-lg-9 col-xl-7">
-        <div class="card">
-          <div class="rounded-top text-white d-flex flex-row" style="background-color: #999999; height:200px;">
-            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-              <% if @user.avatar.present? %>
-                <%= image_tag @user.avatar, style: "float: left; object-fit: cover; width: 90%; height: 90%; border-radius: 50%;" %>
-              <% else %>
-                <%= image_tag "defaultAvatar.png", style: "float: left; vertical-align: top; width: 90%; height: 90%; border-radius: 50%;"%>
-              <% end %>
-            </div>
-            <div class="ms-3" style="margin-top: 130px;">
-              <h5><%= @user.username %></h5>
-            </div>
-          </div>
-          <div class="p-4 text-black" style="background-color: #DADADA;">
-            <% if @user.id == current_user.id %>
-              <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                      style="z-index: 1;margin-right: 1%; text-align: left">
-                <%= link_to "Edit profile", edit_user_registration_path, class: "nav-link" %>
-              </button>
+<div class="container py-5">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col col-lg-9 col-xl-7">
+      <div class="card">
+        <div class="rounded-top text-white d-flex flex-row" style="background-color: #999999; height:200px;">
+          <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+            <% if @user.avatar.present? %>
+              <%= image_tag @user.avatar, style: "float: left; object-fit: cover; width: 90%; height: 90%; border-radius: 50%;" %>
             <% else %>
-              <% if current_user.following?(@user) %>
-                <%= button_to "Unfollow", unfollow_path(@user) %>
-              <% else %>
-                <%= button_to "Follow", follow_path(@user) %>
-              <% end %>
+              <%= image_tag "defaultAvatar.png", style: "float: left; vertical-align: top; width: 90%; height: 90%; border-radius: 50%;" %>
             <% end %>
-            <div style="margin-bottom: -40px;">
-              <br>
-              <% if @user.bio.present? %>
-                <p><%= @user.bio %></p>
-              <% else %>
-                <p>Nothing yet to say...</p>
-              <% end %>
+          </div>
+          <div class="ms-3" style="margin-top: 130px;">
+            <h5><%= @user.username %></h5>
+          </div>
+        </div>
+        <div class="p-4 text-black" style="background-color: #DADADA;">
+          <% if @user.id == current_user.id %>
+            <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                    style="z-index: 1;margin-right: 1%; text-align: left">
+              <%= link_to "Edit profile", edit_user_registration_path, class: "nav-link" %>
+            </button>
+          <% else %>
+            <% if current_user.following?(@user) %>
+              <%= button_to "Unfollow", unfollow_path(@user) %>
+            <% else %>
+              <%= button_to "Follow", follow_path(@user) %>
+            <% end %>
+          <% end %>
+          <div style="margin-bottom: -40px;">
+            <br>
+            <% if @user.bio.present? %>
+              <p><%= @user.bio %></p>
+            <% else %>
+              <p>Nothing yet to say...</p>
+            <% end %>
+          </div>
+          <div class="d-flex justify-content-end text-center py-1">
+            <div class="px-3">
+              <p class="mb-1 h5" style=" color: rgba(0, 0, 0, 0.8)"><%= @user.posts.count %></p>
+              <p class="small text-muted mb-0">Posts</p>
             </div>
-            <div class="d-flex justify-content-end text-center py-1">
-              <div class="px-3">
-                <p class="mb-1 h5" style=" color: rgba(0, 0, 0, 0.8)"><%= @user.posts.count %></p>
-                <p class="small text-muted mb-0">Posts</p>
-              </div>
-              <div class="px-3">
-                <p class="mb-1 h5">
-                  <%= link_to @user.followers.count, followers_user_path(@user), style: "color: rgba(0, 0, 0, 0.8)"%>
-                </p>
-                <p class="small text-muted mb-0">Followers</p>
-              </div>
-              <div class="px-3">
-                <p class="mb-1 h5">
-                  <%= link_to @user.following.count, following_user_path(@user), style: "color: rgba(0, 0, 0, 0.8)"%>
-                </p>
-                <p class="small text-muted mb-0">Following</p>
-              </div>
+            <div class="px-3">
+              <p class="mb-1 h5">
+                <%= link_to @user.followers.count, followers_user_path(@user), style: "color: rgba(0, 0, 0, 0.8)" %>
+              </p>
+              <p class="small text-muted mb-0">Followers</p>
+            </div>
+            <div class="px-3">
+              <p class="mb-1 h5">
+                <%= link_to @user.following.count, following_user_path(@user), style: "color: rgba(0, 0, 0, 0.8)" %>
+              </p>
+              <p class="small text-muted mb-0">Following</p>
             </div>
           </div>
-          <div class="card-body p-4 text-black">
-            <div class="mb-5">
-
+        </div>
+        <div class="card-body p-4 text-black">
+          <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
             </div>
             <%= stylesheet_link_tag("post") %>
             <p style="color: green"><%= notice %></p>
-            <!--<div id="posts" class="sticker">
-              <%# @posts.each do |post| %>
-                <%# if post.user.id == @user.id %>
-                  <%#= render post %>
-                <%# end %>
-              <%# end %>
-            </div>-->
             <div class="posts-flex">
               <% @posts.each do |post| %>
                 <% if post.user.id == @user.id %>
                   <div class="post_at_account">
                     <%= render 'posts/post_images', post: post %>
                   </div>
-
                 <% end %>
               <% end %>
             </div>
@@ -84,4 +74,4 @@
       </div>
     </div>
   </div>
-  </div>
+</div>

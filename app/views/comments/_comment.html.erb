@@ -13,7 +13,6 @@
 
   <div class="comment-body">
     <%= comment.text %>
-    <%#= text %>
   </div>
   <% if current_user.id == comment.user_id %>
     <%= button_to(comment, method: :delete, style: "width: 24px; height: 24px; border: none; background: none; margin-top: -10px; margin-left: 348px;") do %>

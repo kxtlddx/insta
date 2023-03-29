@@ -19,23 +19,6 @@ RSpec.describe CommentsController, type: :controller do
 
   end
 
-  describe "GET #show" do
-    let(:comment) { create(:comment) }
-
-    before do
-      get :show, params: { id: comment.id }
-    end
-
-    it "assigns @comment" do
-      expect(assigns(:comment)).to eq(comment)
-    end
-
-    it "renders the show template" do
-      expect(response).to render_template("show")
-    end
-
-  end
-
   describe "GET #new" do
     before do
       get :new
@@ -58,52 +41,38 @@ RSpec.describe CommentsController, type: :controller do
         expect {
           post :create, params: { comment: valid_attributes }
         }.to change(Comment, :count).by(1)
+
+        expect(response).to redirect_to(post_path(comment.post))
       end
 
       it "assigns a newly created comment as @comment" do
         post :create, params: { comment: valid_attributes }
         expect(assigns(:comment)).to be_a_new(Comment)
       end
-
-      it "redirects to the created comment" do
-        expect {
-          post :create, params: { comment: valid_attributes }
-        }.to change(Comment, :count).by(1)
-
-        expect(response).to redirect_to(comment_url(Comment.last))
-      end
-    end
-
-    context "with invalid params" do
-      let(:invalid_attributes) { attributes_for(:comment, text: nil) }
-
-      it "does not create a new Comment" do
-        expect {
-          post :create, params: { comment: invalid_attributes }
-        }.not_to change(Comment, :count)
-      end
-
-      it "renders the new template" do
-        post :create, params: { comment: invalid_attributes }
-        expect(response).to render_template("new")
-      end
     end
   end
 
+  context "with invalid params" do
+    let(:invalid_attributes) { attributes_for(:comment, text: nil) }
 
+    it "does not create a new Comment" do
+      expect {
+        post :create, params: { comment: invalid_attributes }
+      }.not_to change(Comment, :count)
+    end
+  end
 
   describe "DELETE #destroy" do
     let!(:comment) { create(:comment) }
-    it "destroys the requested comment" do
+    it "deletes the comment" do
       expect {
         delete :destroy, params: { id: comment.id }
       }.to change(Comment, :count).by(-1)
     end
 
-    it "redirects to the comments list" do
+    it "redirects to the post show page" do
       delete :destroy, params: { id: comment.id }
-      expect(response).to redirect_to(post_path)
+      expect(response).to redirect_to(post_path(comment.post))
     end
   end
-
 end

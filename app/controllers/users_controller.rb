@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :set_user
+  before_action :set_user, except: [:index]
   before_action :authenticate_user!
 
   def show
@@ -36,6 +36,4 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @following = @user.following.page(params[:page]).per(20)
   end
-
-
 end

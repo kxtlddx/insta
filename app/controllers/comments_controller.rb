@@ -1,13 +1,9 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: %i[ show edit update destroy ]
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :set_comment, only: %i[edit update destroy ]
+  before_action :authenticate_user!, except: [:index]
   # GET /comments or /comments.json
   def index
     @comments = Comment.all
-  end
-
-  # GET /comments/1 or /comments/1.json
-  def show
   end
 
   # GET /comments/new
@@ -35,7 +31,7 @@ class CommentsController < ApplicationController
     @post = @comment.post
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_back(fallback_location: posts_path(@post)) }
+      format.html { redirect_back(fallback_location: post_path(@post)) }
       format.json { head :no_content }
     end
   end

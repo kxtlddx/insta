@@ -67,9 +67,8 @@ RSpec.describe PostsController, type: :controller do
       let(:valid_attributes) { attributes_for(:post) }
 
       it "creates a new Post" do
-        expect {
           post :create, params: { post: valid_attributes }
-        }.to change(Post, :count).by(1)
+        expect(Post.count).to eq(1)
       end
 
       it "assigns a newly created post as @post" do
@@ -79,7 +78,7 @@ RSpec.describe PostsController, type: :controller do
 
       it "redirects to the created post" do
         post :create, params: { post: valid_attributes }
-        expect(response).to redirect_to(Post.last)
+        expect(response).to redirect_to(post_url(@post))
       end
 
     end
