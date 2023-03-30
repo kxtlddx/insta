@@ -13,8 +13,7 @@
 !/log/.keep
 !/tmp/.keep
 vendor/*
-/config/.env
-/config/credentials.yml.enc
+.env
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
