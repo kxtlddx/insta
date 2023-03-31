@@ -19,6 +19,7 @@
     <%= link_to post.user.username, user_path(post.user_id), class: "nav-link", style: "color: rgba(0, 0, 0, 1);" %>
 
   </p>
+
   <p class="description">
     <% if post.description.length > 15 %>
       <br>

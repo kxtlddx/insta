@@ -6,6 +6,9 @@
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
       <% if user_signed_in? %>
+        <% if current_user.avatar.attached? %>
+          <%= image_tag(current_user.avatar, style: "vertical-align: middle;width: 50px; height: 50px; border-radius: 50%; ") %>
+          <% end %>
         <%= form_with url: profiles_index_path, method: :get do |form| %>
           <%= form.search_field :query, value: params[:query],
                placeholder: "Search", class:"search-field" %>

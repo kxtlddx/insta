@@ -14,16 +14,12 @@
 # Configure Using Gemfile
 # gem "pg"
 #
-development:
-  <<: *default
-  adapter: mysql2
-  database: <%= ENV['DATABASE_NAME'] %>
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  host: <%= ENV['DATABASE_HOST'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  ssl_mode: verify_identity
-  sslca: "/etc/ssl/certs/ca-certificates.crt"
-
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
