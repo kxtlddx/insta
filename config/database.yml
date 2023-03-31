@@ -9,17 +9,15 @@ default: &default
 development:
   <<: *default
   database: <%= ENV['DATABASE_NAME'] %>
-  ssl_mode: :verify_identity
+  ssl_mode: verify_identity
   sslca: "/etc/ssl/certs/ca-certificates.crt"
+
+
 
 test:
   <<: *default
   database: ekaterina_insta
 
+
 production:
   <<: *default
-  database: ekaterina_insta
-  password: <%= ENV["INSTAGRAM_DATABASE_PASSWORD"] %>
-  url: <%= ENV['DATABASE_URL'] %>
-  ssl_mode: :verify_identity
-  sslca: "/etc/ssl/certs/ca-certificates.crt"
