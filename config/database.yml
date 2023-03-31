@@ -12,12 +12,37 @@ development:
   ssl_mode: verify_identity
   sslca: "/etc/ssl/certs/ca-certificates.crt"
 
+test:
+  <<: *default
+  database: instagram_test
 
+production:
+  <<: *default
+  database: instagram_production
+
+development:
+  <<: *default
+  adapter: mysql2
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  ssl_mode: verify_identity
+  sslca: "/etc/ssl/certs/ca-certificates.crt"
+
+
+development:
+  <<: *default
+  database: instagram_development
 
 test:
   <<: *default
-  database: ekaterina_insta
+  database: instagram_test
 
 
 production:
   <<: *default
+  database: instagram_production
+  username: instagram
+  password: <%= ENV["INSTAGRAM_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
