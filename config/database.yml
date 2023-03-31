@@ -82,6 +82,9 @@ test:
 production:
   <<: *default
   url: <%= ENV["DATABASE_URL"] %>
-  database: instagram_production
-  username: instagram
-  password: <%= ENV["INSTAGRAM_DATABASE_PASSWORD"] %>
+  database: <%= ENV["DATABASE"] %>
+  hostname: <%= ENV["HOSTNAME"] %>
+  port: 5432
+  username: <%= ENV["USERNAME"] %>
+
+  password: <%= ENV["PASSWORD"] %>
