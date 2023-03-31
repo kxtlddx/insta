@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   def index
     if current_user
       @following_users = current_user.following
-    @posts = Post.joins(:user).where(users: { id: @following_users.map(&:id) })
+      @posts = Post.joins(:user).where(users: { id: @following_users.map(&:id) })
                  .order(created_at: :desc)
                  .limit(4)
                  .offset(params[:offset])
@@ -60,5 +60,4 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:description, :user_id, images: [])
   end
-
 end
