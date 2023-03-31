@@ -1,6 +1,6 @@
 databases:
   - name: postgres
-    plan: hobby
+    plan: free
     ipAllowList: []
 services:
   - type: web
