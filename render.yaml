@@ -1,5 +1,6 @@
 databases:
-  - name: postrgres
+  - name: postgres
+    plan: hobby
     ipAllowList: []
 services:
   - type: web
@@ -14,8 +15,9 @@ services:
         fromDatabase:
           name: postgres
           property: connectionString
+    plan: starter
   - type: redis
     name: redis
     ipAllowList: []
-    plan: free
+    plan: starter
     maxmemoryPolicy: noeviction
